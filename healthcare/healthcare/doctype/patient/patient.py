@@ -359,11 +359,12 @@ def get_timeline_data(doctype, name):
 		)
 	)
 
-	customer = frappe.db.get_value(doctype, name, "customer")
-	if customer:
-		from erpnext.accounts.party import get_timeline_data
+	# TODO find customer communication date
+	# customer = frappe.db.get_value(doctype, name, "customer")
+	# if customer:
+	# 	from erpnext.accounts.party import get_timeline_data
 
-		customer_timeline_data = get_timeline_data("Customer", customer)
-		patient_timeline_data.update(customer_timeline_data)
+	# 	customer_timeline_data = get_timeline_data("Customer", customer)
+	# 	patient_timeline_data.update(customer_timeline_data)
 
 	return patient_timeline_data
