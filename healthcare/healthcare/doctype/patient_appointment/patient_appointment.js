@@ -114,6 +114,12 @@ frappe.ui.form.on('Patient Appointment', {
 		}
 
 		frm.trigger("make_invoice_button");
+
+		// Hiding
+		frm.set_df_property('procedure_template', 'hidden', 1)
+		frm.set_df_property('therapy_plan', 'hidden', 1)
+		frm.set_df_property('referring_practitioner', 'hidden', 1)
+		frm.set_df_property('section_break_16', 'hidden', 1)
 	},
 
 	make_invoice_button: function (frm) {
@@ -380,9 +386,9 @@ let check_and_set_availability = function(frm) {
 		let d = new frappe.ui.Dialog({
 			title: __('Available slots'),
 			fields: [
-				{ fieldtype: 'Link', options: 'Medical Department', reqd: 1, fieldname: 'department', label: 'Medical Department' },
+				{ fieldtype: 'Link', options: 'Medical Department', fieldname: 'department', label: 'Medical Department' },
 				{ fieldtype: 'Column Break' },
-				{ fieldtype: 'Link', options: 'Healthcare Practitioner', reqd: 1, fieldname: 'practitioner', label: 'Healthcare Practitioner' },
+				{ fieldtype: 'Link', options: 'Healthcare Practitioner', fieldname: 'practitioner', label: 'Healthcare Practitioner' },
 				{ fieldtype: 'Column Break' },
 				{ fieldtype: 'Date', reqd: 1, fieldname: 'appointment_date', label: 'Date', min_date: new Date(frappe.datetime.get_today()) },
 				{ fieldtype: 'Section Break' },
