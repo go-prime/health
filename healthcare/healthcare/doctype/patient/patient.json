@@ -12,6 +12,7 @@
  "field_order": [
   "basic_info",
   "naming_series",
+  "title",
   "first_name",
   "middle_name",
   "last_name",
@@ -21,7 +22,6 @@
   "dob",
   "age_html",
   "image",
-  "column_break_14",
   "status",
   "uid",
   "inpatient_record",
@@ -30,6 +30,18 @@
   "mobile",
   "phone",
   "email",
+  "column_break_14",
+  "medical_aid_number",
+  "zimbabwean_citizen",
+  "national_reg_no",
+  "non_res_nationality",
+  "id_type",
+  "occupation",
+  "employer",
+  "religion",
+  "specialist",
+  "provisional_diagnosis",
+  "gp",
   "invite_user",
   "user_id",
   "customer_details_section",
@@ -40,6 +52,21 @@
   "default_currency",
   "default_price_list",
   "language",
+  "patient_next_of_kin_details_section",
+  "next_of_kin_first_name",
+  "next_of_kin_surname",
+  "next_of_kin_title",
+  "column_break_qifpz",
+  "relationship",
+  "next_of_kin_address",
+  "person_responsible_for_fees_section",
+  "payer_first_name",
+  "payer_surname",
+  "payer_title",
+  "payer_relationship",
+  "column_break_o3dwg",
+  "payee_id",
+  "payee_address",
   "more_info",
   "patient_details",
   "dashboard_tab",
@@ -52,7 +79,6 @@
   "patient_relation",
   "medical_history_tab",
   "personal_and_social_history",
-  "occupation",
   "column_break_25",
   "marital_status",
   "allergy_medical_and_surgical_history",
@@ -464,7 +490,7 @@
    "fieldname": "uid",
    "fieldtype": "Data",
    "in_standard_filter": 1,
-   "label": "Identification Number (UID)",
+   "label": "Identification Number (ID)",
    "unique": 1
   },
   {
@@ -483,16 +509,152 @@
    "fieldname": "medical_history_tab",
    "fieldtype": "Tab Break",
    "label": "Medical History"
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Select",
+   "label": "Title",
+   "options": "Mr\nMrs\nMs"
+  },
+  {
+   "fieldname": "medical_aid_number",
+   "fieldtype": "Data",
+   "label": "Medical Aid Number"
+  },
+  {
+   "fieldname": "zimbabwean_citizen",
+   "fieldtype": "Select",
+   "label": "Zimbabwean Citizen",
+   "options": "Yes\nNo"
+  },
+  {
+   "fieldname": "national_reg_no",
+   "fieldtype": "Data",
+   "label": "National Reg No."
+  },
+  {
+   "fieldname": "non_res_nationality",
+   "fieldtype": "Data",
+   "label": "None Resident Nationality"
+  },
+  {
+   "description": "E.g. Passport, Driver's Licence",
+   "fieldname": "id_type",
+   "fieldtype": "Data",
+   "label": "ID Type"
+  },
+  {
+   "fieldname": "employer",
+   "fieldtype": "Data",
+   "label": "Employer"
+  },
+  {
+   "fieldname": "religion",
+   "fieldtype": "Data",
+   "label": "Religion"
+  },
+  {
+   "fieldname": "specialist",
+   "fieldtype": "Data",
+   "label": "Specialist"
+  },
+  {
+   "fieldname": "provisional_diagnosis",
+   "fieldtype": "Data",
+   "label": "Provisional Diagnosis"
+  },
+  {
+   "fieldname": "gp",
+   "fieldtype": "Data",
+   "label": "GP(General Practitioner)"
+  },
+  {
+   "fieldname": "patient_next_of_kin_details_section",
+   "fieldtype": "Section Break",
+   "label": "Patient Next of Kin Details"
+  },
+  {
+   "fieldname": "next_of_kin_first_name",
+   "fieldtype": "Data",
+   "label": "First Name"
+  },
+  {
+   "fieldname": "next_of_kin_surname",
+   "fieldtype": "Data",
+   "label": "Surname"
+  },
+  {
+   "fieldname": "next_of_kin_title",
+   "fieldtype": "Select",
+   "label": "Title",
+   "options": "Mr\nMrs\nMs"
+  },
+  {
+   "fieldname": "column_break_qifpz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "relationship",
+   "fieldtype": "Select",
+   "label": "Relationship",
+   "options": "Father\nMother\nSpouse\nSiblings\nFamily\nOther"
+  },
+  {
+   "fieldname": "next_of_kin_address",
+   "fieldtype": "Small Text",
+   "label": "Address"
+  },
+  {
+   "fieldname": "person_responsible_for_fees_section",
+   "fieldtype": "Section Break",
+   "label": "Person Responsible For Fees"
+  },
+  {
+   "fieldname": "column_break_o3dwg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "payee_id",
+   "fieldtype": "Data",
+   "label": "ID"
+  },
+  {
+   "fieldname": "payee_address",
+   "fieldtype": "Small Text",
+   "label": "Payee Address"
+  },
+  {
+   "fieldname": "payer_first_name",
+   "fieldtype": "Data",
+   "label": "First Name"
+  },
+  {
+   "fieldname": "payer_surname",
+   "fieldtype": "Data",
+   "label": "Surname"
+  },
+  {
+   "fieldname": "payer_title",
+   "fieldtype": "Select",
+   "label": "Title",
+   "options": "Mr\nMrs\nMs"
+  },
+  {
+   "fieldname": "payer_relationship",
+   "fieldtype": "Select",
+   "label": "Relationship",
+   "options": "Father\nMother\nSpouse\nSiblings\nFamily\nOther"
   }
  ],
  "icon": "fa fa-user",
  "image_field": "image",
  "links": [],
  "max_attachments": 50,
- "modified": "2023-01-13 17:48:59.069268",
+ "modified": "2024-07-12 11:22:03.653437",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Patient",
+ "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {
