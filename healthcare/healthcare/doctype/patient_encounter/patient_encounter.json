@@ -121,8 +121,7 @@
    "fieldtype": "Link",
    "in_standard_filter": 1,
    "label": "Healthcare Practitioner",
-   "options": "Healthcare Practitioner",
-   "reqd": 1
+   "options": "Healthcare Practitioner"
   },
   {
    "default": "Today",
@@ -343,7 +342,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-01-14 19:09:28.299085",
+ "modified": "2024-07-12 15:05:49.811261",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Patient Encounter",

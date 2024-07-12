@@ -10,8 +10,7 @@ def get_data():
 			"Nursing Task": "reference_name",
 		},
 		"transactions": [
-			{"label": _("Records"), "items": ["Vital Signs", "Patient Medical Record"]},
-			{"label": _("Orders"), "items": ["Inpatient Medication Order", "Nursing Task"]},
+			{"label": _("Records"), "items": ["Vital Signs", "Patient Medical Record"]}
 		],
 		"disable_create_buttons": ["Inpatient Medication Order"],
 	}
