@@ -47,14 +47,6 @@ frappe.ui.form.on('Patient Encounter', {
 		refresh_field('lab_test_prescription');
 
 		if (!frm.doc.__islocal) {
-			if (frm.doc.docstatus === 1) {
-				if(!['Discharge Scheduled', 'Admission Scheduled', 'Admitted'].includes(frm.doc.inpatient_status)) {
-					frm.add_custom_button(__('Schedule Admission'), function() {
-						schedule_inpatient(frm);
-					});
-				}
-			}
-
 			frm.add_custom_button(__('Patient History'), function() {
 				if (frm.doc.patient) {
 					frappe.route_options = {'patient': frm.doc.patient};
