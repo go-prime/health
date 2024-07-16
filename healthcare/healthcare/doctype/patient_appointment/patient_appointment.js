@@ -383,67 +383,71 @@ let check_and_set_availability = function(frm) {
 	}
 
 	function show_availability() {
-		let selected_practitioner = '';
-		let d = new frappe.ui.Dialog({
-			title: __('Available slots'),
-			fields: [
-				{ fieldtype: 'Link', options: 'Medical Department', fieldname: 'department', label: 'Medical Department' },
-				{ fieldtype: 'Column Break' },
-				{ fieldtype: 'Link', options: 'Healthcare Practitioner', fieldname: 'practitioner', label: 'Healthcare Practitioner' },
-				{ fieldtype: 'Column Break' },
-				{ fieldtype: 'Date', reqd: 1, fieldname: 'appointment_date', label: 'Date', min_date: new Date(frappe.datetime.get_today()) },
-				{ fieldtype: 'Section Break' },
-				{ fieldtype: 'HTML', fieldname: 'available_slots' },
-			],
-			primary_action_label: __('Book'),
-			primary_action: async function() {
-				frm.set_value('appointment_time', selected_slot);
-				add_video_conferencing = add_video_conferencing && !d.$wrapper.find(".opt-out-check").is(":checked")
-					&& !overlap_appointments
+		frappe.db.get_value("Transaction Controls", undefined, "default_practitioner")
+		.then(r => {
+			const practitioner = r.message.default_practitioner
+			let selected_practitioner = '';
+			let d = new frappe.ui.Dialog({
+				title: __('Available slots'),
+				fields: [
+					{ fieldtype: 'Link', options: 'Medical Department', fieldname: 'department', label: 'Medical Department' },
+					{ fieldtype: 'Column Break' },
+					{ fieldtype: 'Link', options: 'Healthcare Practitioner', fieldname: 'practitioner', label: 'Healthcare Practitioner' },
+					{ fieldtype: 'Column Break' },
+					{ fieldtype: 'Date', reqd: 1, fieldname: 'appointment_date', label: 'Date', min_date: new Date(frappe.datetime.get_today()) },
+					{ fieldtype: 'Section Break' },
+					{ fieldtype: 'HTML', fieldname: 'available_slots' },
+				],
+				primary_action_label: __('Book'),
+				primary_action: async function() {
+					frm.set_value('appointment_time', selected_slot);
+					add_video_conferencing = add_video_conferencing && !d.$wrapper.find(".opt-out-check").is(":checked")
+						&& !overlap_appointments
 
-				frm.set_value('add_video_conferencing', add_video_conferencing);
-				if (!frm.doc.duration) {
-					frm.set_value('duration', duration);
-				}
-				let practitioner = frm.doc.practitioner;
+					frm.set_value('add_video_conferencing', add_video_conferencing);
+					if (!frm.doc.duration) {
+						frm.set_value('duration', duration);
+					}
+					let practitioner = frm.doc.practitioner;
 
-				frm.set_value('practitioner', d.get_value('practitioner'));
-				frm.set_value('department', d.get_value('department'));
-				frm.set_value('appointment_date', d.get_value('appointment_date'));
-				frm.set_value('appointment_based_on_check_in', appointment_based_on_check_in)
+					frm.set_value('practitioner', d.get_value('practitioner') || practitioner);
+					frm.set_value('department', d.get_value('department'));
+					frm.set_value('appointment_date', d.get_value('appointment_date'));
+					frm.set_value('appointment_based_on_check_in', appointment_based_on_check_in)
 
-				if (service_unit) {
-					frm.set_value('service_unit', service_unit);
-				}
+					if (service_unit) {
+						frm.set_value('service_unit', service_unit);
+					}
 
-				d.hide();
-				frm.enable_save();
-				await frm.save();
-				if (!frm.is_new() && (!practitioner || practitioner == d.get_value('practitioner'))) {
-					await frappe.db.get_single_value("Healthcare Settings", "show_payment_popup").then(val => {
-						frappe.call({
-							method: "healthcare.healthcare.doctype.fee_validity.fee_validity.check_fee_validity",
-							args: { "appointment": frm.doc },
-							callback: (r) => {
-								if (val && !r.message && !frm.doc.invoiced) {
-									make_payment(frm, val);
-								} else {
-									frappe.call({
-										method: "healthcare.healthcare.doctype.patient_appointment.patient_appointment.update_fee_validity",
-										args: { "appointment": frm.doc }
-									});
+					d.hide();
+					frm.enable_save();
+					await frm.save();
+					if (!frm.is_new() && (!practitioner || practitioner == d.get_value('practitioner'))) {
+						await frappe.db.get_single_value("Healthcare Settings", "show_payment_popup").then(val => {
+							frappe.call({
+								method: "healthcare.healthcare.doctype.fee_validity.fee_validity.check_fee_validity",
+								args: { "appointment": frm.doc },
+								callback: (r) => {
+									if (val && !r.message && !frm.doc.invoiced) {
+										make_payment(frm, val);
+									} else {
+										frappe.call({
+											method: "healthcare.healthcare.doctype.patient_appointment.patient_appointment.update_fee_validity",
+											args: { "appointment": frm.doc }
+										});
+									}
 								}
-							}
+							});
 						});
-					});
+					}
+					d.get_primary_btn().attr('disabled', true);
 				}
-				d.get_primary_btn().attr('disabled', true);
-			}
-		});
+			})
+		
 
 		d.set_values({
 			'department': frm.doc.department,
-			'practitioner': frm.doc.practitioner,
+			'practitioner': frm.doc.practitioner || practitioner,
 			'appointment_date': frm.doc.appointment_date,
 		});
 
@@ -485,88 +489,95 @@ let check_and_set_availability = function(frm) {
 		};
 
 		d.show();
+	})
 	}
 
 	function show_slots(d, fd) {
-		if (d.get_value('appointment_date') && d.get_value('practitioner')) {
-			fd.available_slots.html('');
-			frappe.call({
-				method: 'healthcare.healthcare.doctype.patient_appointment.patient_appointment.get_availability_data',
-				args: {
-					practitioner: d.get_value('practitioner'),
-					date: d.get_value('appointment_date'),
-					appointment: frm.doc
-				},
-				callback: (r) => {
-					let data = r.message;
-					if (data.slot_details.length > 0) {
-						let $wrapper = d.fields_dict.available_slots.$wrapper;
+		frappe.db.get_value("Transaction Controls", undefined, "default_practitioner")
+		.then(r => {
+			console.log('_________\n\n\n')
+			console.log({r})
+			const default_practitioner = r.message.default_practitioner
+			if (d.get_value('appointment_date')) {
+				fd.available_slots.html('');
+				frappe.call({
+					method: 'healthcare.healthcare.doctype.patient_appointment.patient_appointment.get_availability_data',
+					args: {
+						practitioner: d.get_value('practitioner') || default_practitioner,
+						date: d.get_value('appointment_date'),
+						appointment: frm.doc
+					},
+					callback: (r) => {
+						let data = r.message;
+						if (data.slot_details.length > 0) {
+							let $wrapper = d.fields_dict.available_slots.$wrapper;
 
-						// make buttons for each slot
-						let slot_html = get_slots(data.slot_details, data.fee_validity, d.get_value('appointment_date'));
+							// make buttons for each slot
+							let slot_html = get_slots(data.slot_details, data.fee_validity, d.get_value('appointment_date'));
 
-						$wrapper
-							.css('margin-bottom', 0)
-							.addClass('text-center')
-							.html(slot_html);
+							$wrapper
+								.css('margin-bottom', 0)
+								.addClass('text-center')
+								.html(slot_html);
 
-						// highlight button when clicked
-						$wrapper.on('click', 'button', function() {
-							let $btn = $(this);
-							$wrapper.find('button').removeClass('btn-outline-primary');
-							$btn.addClass('btn-outline-primary');
-							selected_slot = $btn.attr('data-name');
-							service_unit = $btn.attr('data-service-unit');
-							appointment_based_on_check_in = $btn.attr('data-day-appointment');
-							duration = $btn.attr('data-duration');
-							add_video_conferencing = parseInt($btn.attr('data-tele-conf'));
-							overlap_appointments = parseInt($btn.attr('data-overlap-appointments'));
-							// show option to opt out of tele conferencing
-							if ($btn.attr('data-tele-conf') == 1) {
-								if (d.$wrapper.find(".opt-out-conf-div").length) {
-									d.$wrapper.find(".opt-out-conf-div").show();
-								} else {
-									overlap_appointments ?
-										d.footer.prepend(
-											`<div class="opt-out-conf-div ellipsis text-muted" style="vertical-align:text-bottom;">
+							// highlight button when clicked
+							$wrapper.on('click', 'button', function() {
+								let $btn = $(this);
+								$wrapper.find('button').removeClass('btn-outline-primary');
+								$btn.addClass('btn-outline-primary');
+								selected_slot = $btn.attr('data-name');
+								service_unit = $btn.attr('data-service-unit');
+								appointment_based_on_check_in = $btn.attr('data-day-appointment');
+								duration = $btn.attr('data-duration');
+								add_video_conferencing = parseInt($btn.attr('data-tele-conf'));
+								overlap_appointments = parseInt($btn.attr('data-overlap-appointments'));
+								// show option to opt out of tele conferencing
+								if ($btn.attr('data-tele-conf') == 1) {
+									if (d.$wrapper.find(".opt-out-conf-div").length) {
+										d.$wrapper.find(".opt-out-conf-div").show();
+									} else {
+										overlap_appointments ?
+											d.footer.prepend(
+												`<div class="opt-out-conf-div ellipsis text-muted" style="vertical-align:text-bottom;">
+													<label>
+														<span class="label-area">
+														${__("Video Conferencing disabled for group consultations")}
+														</span>
+													</label>
+												</div>`
+											)
+										:
+											d.footer.prepend(
+												`<div class="opt-out-conf-div ellipsis" style="vertical-align:text-bottom;">
 												<label>
+													<input type="checkbox" class="opt-out-check"/>
 													<span class="label-area">
-													${__("Video Conferencing disabled for group consultations")}
+													${__("Do not add Video Conferencing")}
 													</span>
 												</label>
 											</div>`
-										)
-									:
-										d.footer.prepend(
-											`<div class="opt-out-conf-div ellipsis" style="vertical-align:text-bottom;">
-											<label>
-												<input type="checkbox" class="opt-out-check"/>
-												<span class="label-area">
-												${__("Do not add Video Conferencing")}
-												</span>
-											</label>
-										</div>`
-										);
+											);
+									}
+								} else {
+									d.$wrapper.find(".opt-out-conf-div").hide();
 								}
-							} else {
-								d.$wrapper.find(".opt-out-conf-div").hide();
-							}
 
-							// enable primary action 'Book'
-							d.get_primary_btn().attr('disabled', null);
-						});
+								// enable primary action 'Book'
+								d.get_primary_btn().attr('disabled', null);
+							});
 
-					} else {
-						//	fd.available_slots.html('Please select a valid date.'.bold())
-						show_empty_state(d.get_value('practitioner'), d.get_value('appointment_date'));
-					}
-				},
-				freeze: true,
-				freeze_message: __('Fetching Schedule...')
-			});
-		} else {
-			fd.available_slots.html(__('Appointment date and Healthcare Practitioner are Mandatory').bold());
-		}
+						} else {
+							//	fd.available_slots.html('Please select a valid date.'.bold())
+							show_empty_state(d.get_value('practitioner') || default_practitioner, d.get_value('appointment_date'));
+						}
+					},
+					freeze: true,
+					freeze_message: __('Fetching Schedule...')
+				});
+			} else {
+				fd.available_slots.html(__('Appointment date is andatory').bold());
+			}
+		})
 	}
 
 	function get_slots(slot_details, fee_validity, appointment_date) {
