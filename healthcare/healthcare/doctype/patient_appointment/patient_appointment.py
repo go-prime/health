@@ -176,10 +176,11 @@ class PatientAppointment(Document):
 
 			# validate if respective field is set
 			if not self.get(appointment_for_field):
-				frappe.throw(
-					_("Please enter {}").format(frappe.bold(self.appointment_for)),
-					frappe.MandatoryError,
-				)
+				if not self.appointment_for == "Practitioner":
+					frappe.throw(
+						_("Please enter {}").format(frappe.bold(self.appointment_for)),
+						frappe.MandatoryError,
+					)
 
 			if self.appointment_for == "Practitioner":
 				# appointments for practitioner are validated separately,
