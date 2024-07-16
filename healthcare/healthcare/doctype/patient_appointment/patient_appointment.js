@@ -383,9 +383,9 @@ let check_and_set_availability = function(frm) {
 	}
 
 	function show_availability() {
-		frappe.db.get_value("Transaction Controls", undefined, "default_practitioner")
+		frappe.db.get_single_value("Transaction Controls", "default_practitioner")
 		.then(r => {
-			const practitioner = r.message.default_practitioner
+			const practitioner = r
 			let selected_practitioner = '';
 			let d = new frappe.ui.Dialog({
 				title: __('Available slots'),
@@ -493,9 +493,9 @@ let check_and_set_availability = function(frm) {
 	}
 
 	function show_slots(d, fd) {
-		frappe.db.get_value("Transaction Controls", undefined, "default_practitioner")
+		frappe.db.get_single_value("Transaction Controls", "default_practitioner")
 		.then(r => {
-			const default_practitioner = r.message.default_practitioner
+			const default_practitioner = r
 			if (d.get_value('appointment_date')) {
 				fd.available_slots.html('');
 				frappe.call({
