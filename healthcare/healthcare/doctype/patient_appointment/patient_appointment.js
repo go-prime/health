@@ -495,8 +495,6 @@ let check_and_set_availability = function(frm) {
 	function show_slots(d, fd) {
 		frappe.db.get_value("Transaction Controls", undefined, "default_practitioner")
 		.then(r => {
-			console.log('_________\n\n\n')
-			console.log({r})
 			const default_practitioner = r.message.default_practitioner
 			if (d.get_value('appointment_date')) {
 				fd.available_slots.html('');
