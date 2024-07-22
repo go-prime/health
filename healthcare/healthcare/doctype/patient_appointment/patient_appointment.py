@@ -61,8 +61,8 @@ class PatientAppointment(Document):
 
 	def set_title(self):
 		if self.practitioner:
-			self.title = _("{0} with {1}").format(
-				self.patient_name or self.patient, self.practitioner_name or self.practitioner
+			self.title = _("{0}").format(
+				self.patient_name or self.patient
 			)
 		else:
 			self.title = _("{0} at {1}").format(
@@ -588,7 +588,7 @@ def get_availability_data(date, practitioner, appointment):
 	if not slot_details:
 		# TODO: return available slots in nearby dates
 		frappe.throw(
-			_("Healthcare Practitioner not available on {0}").format(weekday), title=_("Not Available")
+			_("No appointment available on {0}").format(weekday), title=_("Not Available")
 		)
 
 	if isinstance(appointment, str):

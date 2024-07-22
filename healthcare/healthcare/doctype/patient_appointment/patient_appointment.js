@@ -390,10 +390,11 @@ let check_and_set_availability = function(frm) {
 			let d = new frappe.ui.Dialog({
 				title: __('Available slots'),
 				fields: [
-					{ fieldtype: 'Link', options: 'Medical Department', fieldname: 'department', label: 'Medical Department' },
+					{ fieldtype: 'Link', options: 'Medical Department', hidden: 1, fieldname: 'department', label: 'Medical Department' },
 					{ fieldtype: 'Column Break' },
-					{ fieldtype: 'Link', options: 'Healthcare Practitioner', fieldname: 'practitioner', label: 'Healthcare Practitioner' },
+					{ fieldtype: 'Link', options: 'Healthcare Practitioner', hidden: 1, fieldname: 'practitioner', label: 'Healthcare Practitioner' },
 					{ fieldtype: 'Column Break' },
+					{ fieldtype: 'Section Break' },
 					{ fieldtype: 'Date', reqd: 1, fieldname: 'appointment_date', label: 'Date', min_date: new Date(frappe.datetime.get_today()) },
 					{ fieldtype: 'Section Break' },
 					{ fieldtype: 'HTML', fieldname: 'available_slots' },
