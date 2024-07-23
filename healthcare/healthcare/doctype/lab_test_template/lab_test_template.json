@@ -108,7 +108,7 @@
    "in_standard_filter": 1,
    "label": "Department",
    "options": "Medical Department",
-   "reqd": 1
+   "hidden": 1
   },
   {
    "fieldname": "column_break_3",
@@ -326,7 +326,8 @@
    "fieldname": "nursing_checklist_template",
    "fieldtype": "Link",
    "label": "Nursing Checklist Template",
-   "options": "Nursing Checklist Template"
+   "options": "Nursing Checklist Template",
+   "hidden" : 1
   },
   {
    "fieldname": "descriptive_result",
@@ -370,7 +371,8 @@
   {
    "fieldname": "billing_section",
    "fieldtype": "Section Break",
-   "label": "Billing"
+   "label": "Billing",
+   "hidden": 1
   },
   {
    "fieldname": "column_break_hih3",
@@ -382,7 +384,7 @@
   }
  ],
  "links": [],
- "modified": "2023-02-23 12:14:27.297802",
+ "modified": "2024-07-22 13:28:04.801812",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Lab Test Template",
