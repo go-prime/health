@@ -121,6 +121,9 @@ frappe.ui.form.on('Patient Appointment', {
 		frm.set_df_property('referring_practitioner', 'hidden', 1)
 		frm.set_df_property('section_break_16', 'hidden', 1)
 		frm.set_df_property('add_video_conferencing', 'hidden', 1)
+		frm.set_df_property('practitioner', 'hidden', 1)
+		frm.set_df_property('practitioner_name', 'hidden', 1)
+		frm.set_df_property('department', 'hidden', 1)
 	},
 
 	make_invoice_button: function (frm) {
