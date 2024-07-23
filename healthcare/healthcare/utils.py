@@ -44,6 +44,28 @@ def validate_customer_created(patient):
 		frappe.throw(msg, title=_("Customer Not Found"))
 
 
+def get_consumables_to_invoice(patient, company):
+	consumables_to_invoice = []
+	patience_clinical_procudures = frappe.db.get_list(
+		"Clinical Procedure", 
+		filters = {
+			"patient": patient.name,
+			"company": company,
+			"invoiced": False
+		}
+	)
+	for procedure in patience_clinical_procudures:
+		loaded_procedure = frappe.get_doc("Clinical Procudure", procedure)
+		for item in loaded_procedure.items:
+			if item.invoice_separately_as_consumables:
+				consumables_to_invoice.append({
+						"reference_type": "Clinical Procedure",
+						"reference_name": loaded_procedure.name,
+						"service": item
+					})
+
+	return consumables_to_invoice
+
 def get_appointments_to_invoice(patient, company):
 	appointments_to_invoice = []
 	patient_appointments = frappe.get_list(

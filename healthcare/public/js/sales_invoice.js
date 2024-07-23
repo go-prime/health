@@ -8,6 +8,9 @@ frappe.ui.form.on('Sales Invoice', {
 			frm.add_custom_button(__('Prescriptions'), function() {
 				get_drugs_to_invoice(frm);
 			},__('Get Items From'));
+			frm.add_custom_button(__(' Get Consumables'), function() {
+				get_consumables_to_invoice(frm);
+			},__('Get Items From'));
 		}
 	},
 
@@ -52,6 +55,33 @@ var set_service_unit = function (frm) {
 		});
 	}
 };
+
+
+var get_consumables_to_invoice = function(frm){
+	var me = this;
+	let selected_patient = '';
+	var dialog = new frappe.ui.Dialog({
+		title: __("Get Items from Consumables"),
+		fields:[
+			{
+				fieldtype: 'Link',
+				options: 'Patient',
+				label: 'Patient',
+				fieldname: "patient",
+				reqd: true
+			},
+			{ fieldtype: 'Section Break'	},
+			{ fieldtype: 'HTML', fieldname: 'results_area' }
+		]
+	});
+
+	dialog.set_values({
+		'patient': frm.doc.patient
+	});
+	
+
+}
+
 
 var get_healthcare_services_to_invoice = function(frm) {
 	var me = this;
