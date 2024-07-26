@@ -70,6 +70,18 @@ frappe.ui.form.on('Lab Test', {
 				});
 			});
 		}
+		// Hiding unwanted fields
+		frm.set_df_property('status', 'hidden', 1)
+		frm.set_df_property('submitted_date', 'hidden', 1)
+		frm.set_df_property('service_unit', 'hidden', 1)
+		frm.set_df_property('practitioner', 'hidden', 1)
+		frm.set_df_property('employee', 'hidden', 1)
+		frm.set_df_property('medical_coding_section', 'hidden', 1)
+		frm.set_df_property('worksheet_section', 'hidden', 1)
+		frm.set_df_property('medical_coding_section', 'hidden', 1)
+		frm.set_df_property('result_legend_section', 'hidden', 1)
+		frm.set_df_property('invoiced', 'hidden', 1)
+
 	},
 
 	template: function(frm) {
