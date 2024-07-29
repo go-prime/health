@@ -31,13 +31,6 @@ class LabTestTemplate(Document):
 			create_item_from_template(self)
 
 	def validate(self):
-		if (
-			self.is_billable
-			and not self.link_existing_item
-			and (not self.lab_test_rate or self.lab_test_rate <= 0.0)
-		):
-			frappe.throw(_("Standard Selling Rate should be greater than zero."))
-
 		if self.sample and flt(self.sample_qty) <= 0:
 			frappe.throw(_("Sample Quantity cannot be negative or 0"), title=_("Invalid Quantity"))
 

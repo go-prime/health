@@ -98,17 +98,16 @@
    "label": "Item Group",
    "options": "Item Group",
    "read_only_depends_on": "eval:doc.link_existing_item",
-   "reqd": 1,
    "search_index": 1
   },
   {
    "fieldname": "department",
    "fieldtype": "Link",
+   "hidden": 1,
    "ignore_user_permissions": 1,
    "in_standard_filter": 1,
    "label": "Department",
-   "options": "Medical Department",
-   "hidden": 1
+   "options": "Medical Department"
   },
   {
    "fieldname": "column_break_3",
@@ -132,13 +131,11 @@
    "search_index": 1
   },
   {
-   "depends_on": "eval:doc.is_billable && (!doc.link_existing_item || !doc.__islocal)",
    "description": "This value is updated in the Default Sales Price List.",
    "fieldname": "lab_test_rate",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Rate",
-   "mandatory_depends_on": "eval:doc.is_billable && !doc.link_existing_item"
+   "label": "Rate"
   },
   {
    "depends_on": "eval:doc.lab_test_template_type == 'Single'",
@@ -325,9 +322,9 @@
   {
    "fieldname": "nursing_checklist_template",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Nursing Checklist Template",
-   "options": "Nursing Checklist Template",
-   "hidden" : 1
+   "options": "Nursing Checklist Template"
   },
   {
    "fieldname": "descriptive_result",
@@ -371,8 +368,8 @@
   {
    "fieldname": "billing_section",
    "fieldtype": "Section Break",
-   "label": "Billing",
-   "hidden": 1
+   "hidden": 1,
+   "label": "Billing "
   },
   {
    "fieldname": "column_break_hih3",
@@ -384,7 +381,7 @@
   }
  ],
  "links": [],
- "modified": "2024-07-22 13:28:04.801812",
+ "modified": "2024-07-29 12:45:14.739419",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Lab Test Template",
