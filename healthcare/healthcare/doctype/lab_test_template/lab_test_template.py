@@ -26,10 +26,6 @@ class LabTestTemplate(Document):
 			if price_list:
 				self.lab_test_rate = price_list[0].get("price_list_rate")
 
-	def after_insert(self):
-		if not self.item and not self.link_existing_item:
-			create_item_from_template(self)
-
 	def validate(self):
 		if self.sample and flt(self.sample_qty) <= 0:
 			frappe.throw(_("Sample Quantity cannot be negative or 0"), title=_("Invalid Quantity"))
