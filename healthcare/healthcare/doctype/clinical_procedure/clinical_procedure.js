@@ -141,6 +141,38 @@ frappe.ui.form.on('Clinical Procedure', {
 					});
 				}).addClass("btn-primary");
 			}
+			// button to create sales invoice
+			frm.add_custom_button(__("Create Sales Invoice"), () => 
+				frappe.call({
+					method: "healthcare.healthcare.doctype.clinical_procedure.clinical_procedure.get_procedure_consumables",
+					args: {
+						procedure_template: frm.doc.procedure_template
+					}
+				}).then(r => {
+					const items = r.message
+					frappe.model.with_doctype('Sales Invoice', () => {
+						const invoice = frappe.model.get_new_doc('Sales Invoice');
+
+						// Add items to the Sales Invoice
+						items.forEach(item => {
+							const invoice_item = frappe.model.add_child(invoice, 'items');
+							invoice_item.item_code = item.item_code;
+							invoice_item.item_name = item.item_name;
+							invoice_item.qty = item.qty;
+							invoice_item.rate = item.rate;
+							invoice_item.uom = item.uom;
+							invoice_item.stock_uom = item.uom;
+							invoice_item.conversion_factor = item.conversion_factor
+						});
+
+						// Set the customer (you may need to adjust this based on your requirements)
+						invoice.patient = frm.doc.patient;
+
+						// Redirect to the new Sales Invoice form
+						frappe.set_route('Form', 'Sales Invoice', invoice.name);
+					});
+				})
+			);
 		}
 	},
 
