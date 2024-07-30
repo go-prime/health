@@ -165,8 +165,9 @@ frappe.ui.form.on('Clinical Procedure', {
 							invoice_item.conversion_factor = item.conversion_factor
 						});
 
-						// Set the customer (you may need to adjust this based on your requirements)
 						invoice.patient = frm.doc.patient;
+						invoice.service_unit = frm.doc.service_unit
+						invoice.ref_practitioner = frm.doc.practitioner
 
 						// Redirect to the new Sales Invoice form
 						frappe.set_route('Form', 'Sales Invoice', invoice.name);
