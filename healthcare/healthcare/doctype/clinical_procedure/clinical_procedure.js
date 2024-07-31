@@ -142,7 +142,7 @@ frappe.ui.form.on('Clinical Procedure', {
 				}).addClass("btn-primary");
 			}
 			// button to create sales invoice
-			frm.add_custom_button(__("Create Sales Invoice"), () => 
+			frm.add_custom_button(__("Sales Invoice"), () => 
 				frappe.call({
 					method: "healthcare.healthcare.doctype.clinical_procedure.clinical_procedure.get_procedure_consumables",
 					args: {
@@ -173,7 +173,15 @@ frappe.ui.form.on('Clinical Procedure', {
 						frappe.set_route('Form', 'Sales Invoice', invoice.name);
 					});
 				})
-			);
+			,__('Create'));
+			frm.add_custom_button(__(' Lab Test'), () =>{
+
+				frappe.model.with_doctype('Lab Test', () => {
+					const lab_test = frappe.model.get_new_doc('Lab Test');
+					lab_test.patient = frm.doc.patient;
+					frappe.set_route('Form', 'Lab Test', lab_test.name);
+				})
+			},__('Create'));
 		}
 	},
 
