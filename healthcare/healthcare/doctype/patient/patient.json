@@ -10,6 +10,11 @@
  "document_type": "Document",
  "engine": "InnoDB",
  "field_order": [
+  "hospital_details_section",
+  "hospital_no",
+  "admission_date",
+  "column_break_33",
+  "date_of_discharge",
   "basic_info",
   "naming_series",
   "title",
@@ -31,7 +36,6 @@
   "phone",
   "email",
   "column_break_14",
-  "medical_aid_number",
   "zimbabwean_citizen",
   "national_reg_no",
   "non_res_nationality",
@@ -43,7 +47,18 @@
   "provisional_diagnosis",
   "gp",
   "invite_user",
+  "other_risk_factors",
   "user_id",
+  "medical_aid_details",
+  "members_title",
+  "member_firstnames",
+  "members_surname",
+  "medical_aid_society",
+  "medical_aid_number",
+  "column_break_34",
+  "members_occupation",
+  "members_employer",
+  "members_relationship",
   "customer_details_section",
   "customer",
   "customer_group",
@@ -94,7 +109,7 @@
   "alcohol_current_use",
   "column_break_32",
   "surrounding_factors",
-  "other_risk_factors"
+  "patient_suffix"
  ],
  "fields": [
   {
@@ -644,13 +659,86 @@
    "fieldtype": "Select",
    "label": "Relationship",
    "options": "Father\nMother\nSpouse\nSiblings\nFamily\nOther"
+  },
+  {
+   "fieldname": "hospital_details_section",
+   "fieldtype": "Section Break",
+   "label": "Hospital Details"
+  },
+  {
+   "fieldname": "hospital_no",
+   "fieldtype": "Data",
+   "label": "Hospital Number"
+  },
+  {
+   "fieldname": "admission_date",
+   "fieldtype": "Date",
+   "label": "Admission Date"
+  },
+  {
+   "fieldname": "date_of_discharge",
+   "fieldtype": "Date",
+   "label": "Date Of Discharge Outcome"
+  },
+  {
+   "fieldname": "medical_aid_details",
+   "fieldtype": "Section Break",
+   "label": "Medical Aid Details"
+  },
+  {
+   "fieldname": "members_title",
+   "fieldtype": "Data",
+   "label": "Members Title"
+  },
+  {
+   "fieldname": "members_surname",
+   "fieldtype": "Data",
+   "label": "Members Surname"
+  },
+  {
+   "fieldname": "medical_aid_society",
+   "fieldtype": "Data",
+   "label": "Medical Aid Society"
+  },
+  {
+   "fieldname": "members_occupation",
+   "fieldtype": "Data",
+   "label": "Member's Occupation"
+  },
+  {
+   "fieldname": "members_employer",
+   "fieldtype": "Data",
+   "label": "Member's Employer"
+  },
+  {
+   "fieldname": "members_relationship",
+   "fieldtype": "Data",
+   "label": "Relation Of Member To Patient"
+  },
+  {
+   "fieldname": "patient_suffix",
+   "fieldtype": "Data",
+   "label": "Patient Suffix"
+  },
+  {
+   "fieldname": "column_break_33",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_34",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "member_firstnames",
+   "fieldtype": "Data",
+   "label": "Member's First Names"
   }
  ],
  "icon": "fa fa-user",
  "image_field": "image",
  "links": [],
  "max_attachments": 50,
- "modified": "2024-07-12 11:22:03.653437",
+ "modified": "2024-08-06 11:42:26.403645",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Patient",
