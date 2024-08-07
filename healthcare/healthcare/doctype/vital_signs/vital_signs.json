@@ -25,18 +25,23 @@
   "respiratory_rate",
   "tongue",
   "abdomen",
+  "oxygen_saturation",
   "column_break_8",
   "reflexes",
   "bp_systolic",
   "bp_diastolic",
   "bp",
+  "random_blood_sugar",
   "vital_signs_note",
+  "pre_comments",
   "sb_nutrition_values",
   "height",
   "weight",
   "bmi",
+  "post_weight",
   "column_break_14",
   "nutrition_note",
+  "post_comments",
   "sb_references",
   "amended_from"
  ],
@@ -180,7 +185,7 @@
    "fieldname": "vital_signs_note",
    "fieldtype": "Small Text",
    "ignore_xss_filter": 1,
-   "label": "Notes"
+   "label": "Pre Notes"
   },
   {
    "fieldname": "sb_nutrition_values",
@@ -197,7 +202,7 @@
    "fieldname": "weight",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Weight (In Kilogram)"
+   "label": "Pre Weight (In Kilogram)"
   },
   {
    "default": "0.00",
@@ -215,7 +220,7 @@
    "fieldname": "nutrition_note",
    "fieldtype": "Small Text",
    "ignore_xss_filter": 1,
-   "label": "Notes"
+   "label": "Post Notes"
   },
   {
    "fieldname": "company",
@@ -254,11 +259,36 @@
    "no_copy": 1,
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "oxygen_saturation",
+   "fieldtype": "Data",
+   "label": "Oxygen Saturation"
+  },
+  {
+   "fieldname": "random_blood_sugar",
+   "fieldtype": "Data",
+   "label": "Random Blood Sugar "
+  },
+  {
+   "fieldname": "post_weight",
+   "fieldtype": "Float",
+   "label": "Post Weight (In Kilogram)"
+  },
+  {
+   "fieldname": "pre_comments",
+   "fieldtype": "Small Text",
+   "label": "Pre Comments"
+  },
+  {
+   "fieldname": "post_comments",
+   "fieldtype": "Small Text",
+   "label": "Post Comments"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-07 12:14:26.166928",
+ "modified": "2024-08-07 10:24:39.030333",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Vital Signs",
