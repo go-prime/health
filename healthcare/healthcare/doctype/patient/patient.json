@@ -14,7 +14,7 @@
   "hospital_no",
   "admission_date",
   "column_break_33",
-  "date_of_discharge",
+  "date_of_discharge_or_outcome",
   "basic_info",
   "naming_series",
   "title",
@@ -54,8 +54,8 @@
   "member_firstnames",
   "members_surname",
   "medical_aid_society",
-  "medical_aid_number",
   "column_break_34",
+  "medical_aid_number",
   "members_occupation",
   "members_employer",
   "members_relationship",
@@ -676,11 +676,6 @@
    "label": "Admission Date"
   },
   {
-   "fieldname": "date_of_discharge",
-   "fieldtype": "Date",
-   "label": "Date Of Discharge Outcome"
-  },
-  {
    "fieldname": "medical_aid_details",
    "fieldtype": "Section Break",
    "label": "Medical Aid Details"
@@ -694,11 +689,6 @@
    "fieldname": "members_surname",
    "fieldtype": "Data",
    "label": "Members Surname"
-  },
-  {
-   "fieldname": "medical_aid_society",
-   "fieldtype": "Data",
-   "label": "Medical Aid Society"
   },
   {
    "fieldname": "members_occupation",
@@ -732,13 +722,24 @@
    "fieldname": "member_firstnames",
    "fieldtype": "Data",
    "label": "Member's First Names"
+  },
+  {
+   "fieldname": "date_of_discharge_or_outcome",
+   "fieldtype": "Data",
+   "label": "Date Of Discharge / Outcome"
+  },
+  {
+   "fieldname": "medical_aid_society",
+   "fieldtype": "Link",
+   "label": "Medical Aid Society",
+   "options": "Medical Aid"
   }
  ],
  "icon": "fa fa-user",
  "image_field": "image",
  "links": [],
  "max_attachments": 50,
- "modified": "2024-08-06 11:42:26.403645",
+ "modified": "2024-08-07 09:06:51.556743",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Patient",
