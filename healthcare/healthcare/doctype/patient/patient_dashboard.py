@@ -12,7 +12,7 @@ def get_data():
 		"transactions": [
 			{
 				"label": _("Appointments and Encounters"),
-				"items": ["Patient Appointment", "Vital Signs"],
+				"items": ["Session Booking", "Vital Signs"],
 			},
 			{"label": _("Lab Tests and Vital Signs"), "items": ["Lab Test"]},
 			{"label": _("Billing and Payments"), "items": ["Sales Invoice", "Payment Entry"]},
