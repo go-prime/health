@@ -260,6 +260,8 @@ class Patient(Document):
 		customer.language = self.language
 		customer.image = self.image
 		customer.ignore_mandatory = True
+		if self.get('medical_aid_society'):
+			customer.medical_aid = self.medical_aid_society
 		customer.save(ignore_permissions=True)
 
 		frappe.msgprint(_("Customer {0} updated").format(customer.name), alert=True)
