@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:SESS-BOOK-{YYYY}-{######}",
  "creation": "2024-08-06 11:34:42.567193",
  "default_view": "List",
  "doctype": "DocType",
@@ -17,9 +18,8 @@
   "column_break_twuiu",
   "last_name",
   "booking_section",
-  "booking_date",
-  "column_break_dyhmm",
-  "booking_time"
+  "booking_dates",
+  "column_break_dyhmm"
  ],
  "fields": [
   {
@@ -83,26 +83,23 @@
    "label": "Booking"
   },
   {
-   "fieldname": "booking_date",
-   "fieldtype": "Date",
-   "label": "Booking Date"
-  },
-  {
    "fieldname": "column_break_dyhmm",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "booking_time",
-   "fieldtype": "Time",
-   "label": "Booking Time"
+   "fieldname": "booking_dates",
+   "fieldtype": "Table",
+   "label": "Booking Dates",
+   "options": "Session Booking Date"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-06 12:32:30.351572",
+ "modified": "2024-11-26 09:46:52.824262",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Session Booking",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
